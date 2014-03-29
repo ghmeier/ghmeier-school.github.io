@@ -59,6 +59,10 @@ class Expense
 		return $this->name;
 	}
 	
+	function getAmountPaid(){
+		return $this->amountPaid;
+	}
+	
 	function makePayment($amount)
 	{
 		$this->amountPaid = $this->amountPaid + $amount;

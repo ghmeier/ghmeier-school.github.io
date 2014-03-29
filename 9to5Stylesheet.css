@@ -16,7 +16,7 @@ body{
 	width:500px;
 	height:500px;
 	border-radius: 250px;
-	background-color:green;
+	background-image:url(images/Progressbar.jpg);
 	float:left;
 	bottom:0px;
 	top:540px;
@@ -42,7 +42,7 @@ body{
 	height:5%;
 	margin:5%;
 	margin-bottom:0%;
-	background-color:#990000;
+	/*background-color:#990000;*/
 }
 
 .income{
@@ -54,6 +54,11 @@ body{
 	background-color:#339966;
 }
 
+.ui-progressbar.ui-widget-content {
+     background: red;
+ }
+
 .ui-progressbar .ui-progressbar-value {
-    background-image: url(http://bit.ly/13wIQuG);
+    background-image: url(images/Progressbar.jpg);
+	
 }

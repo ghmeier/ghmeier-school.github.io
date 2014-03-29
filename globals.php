@@ -8,8 +8,9 @@ class Globals{
 	function __construct() {
 		$_SESSION['NONE'] = 0;
 		$_SESSION["DAILY"] = 1;
-		$_SESSION["MONTHLY"] = 2;
-		$_SESSION["YEARLY"] = 3;
+		$_SESSION["WEEKLY"] = 2;
+		$_SESSION["MONTHLY"] = 4;
+		$_SESSION["YEARLY"] = 5;
 	}
 	function addIncome($income){
 		$this->incomes[] = $income;
