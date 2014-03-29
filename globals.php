@@ -1,14 +1,11 @@
-<?php require_once("expense.php"); ?>
-<?php require_once("income.php"); ?>
+
 <?php
+
 class Globals{
 	var $incomes = array();
 	var $expenses = array();
-	var $amountOwned = 0;
 	
-	
-	function _construct() {
-		session_start();
+	function __construct() {
 		$_SESSION['NONE'] = 0;
 		$_SESSION["DAILY"] = 1;
 		$_SESSION["MONTHLY"] = 2;
@@ -30,16 +27,6 @@ class Globals{
 		return $this->expenses;
 	}
 	
-		function getAmountOwned()
-	{
-		return $this->amountOwned;
-	}
-	
-	function updateAmountOwned($update)
-	{
-		$this->amountOwned = $this->amountOwned + $update;
-	}
-
 }
 
 ?>

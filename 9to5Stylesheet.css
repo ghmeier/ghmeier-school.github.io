@@ -41,6 +41,7 @@ body{
 	width:90%;
 	height:5%;
 	margin:5%;
+	margin-bottom:0%;
 	background-color:#990000;
 }
 
@@ -49,5 +50,10 @@ body{
 	width:90%;
 	height:5%;
 	margin:5%;
+	margin-bottom:0%;
 	background-color:#339966;
+}
+
+.ui-progressbar .ui-progressbar-value {
+    background-image: url(http://bit.ly/13wIQuG);
 }
