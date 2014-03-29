@@ -7,9 +7,12 @@
 		<title>9to5</title>
 		<link href="9to5Stylesheet.css" rel="stylesheet" type="text/css"/>
 		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<?php $global = new Globals();
-			$global->addIncome(new Income(100,Globals->NONE,5,"Work"));
-			$global_>addExpense(new Expense(100,0,Globals->DAILY,"Foods"));
+		<?php 			
+			session_start();
+			$global = new Globals();
+			$global->addIncome(new Income(100,$_SESSION['NONE'],5,"Work"));
+			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
+			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
 		?>
 	</head>
 
@@ -18,7 +21,7 @@
 			
 			
 			<div id="expenses">
-			<?php foreach ($expenses as $expense) {?>
+			<?php foreach ($global->getExpenses() as $expense) {?>
 				<div class="expense">
 					<?= $expense->getName(); ?>
 				</div>
@@ -35,7 +38,7 @@
 			</div>
 			
 			<div id="income">
-			<?php foreach ($incomes as $income) {?>
+			<?php foreach ($global->getIncomes() as $income) {?>
 				<div  class="income">
 					<?= $income->getName(); ?>
 				</div>

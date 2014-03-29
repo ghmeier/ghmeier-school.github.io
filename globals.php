@@ -1,28 +1,31 @@
 <?php
 
 class Globals{
-	$incomes = new array();
-	$expenses = new array();
-
-	define("NONE", 0);
-	define("DAILY", 1);
-	define("MONTHLY", 2);
-	define("YEARLY", 3);
+	var $incomes = array();
+	var $expenses = array();
 	
+	
+	function _construct() {
+		session_start();
+		$_SESSION['NONE'] = 0;
+		$_SESSION["DAILY"] = 1;
+		$_SESSION["MONTHLY"] = 2;
+		$_SESSION["YEARLY"] = 3;
+	}
 	function addIncome($income){
-		$incomes[] = $income;
+		$this->incomes[] = $income;
 	}
 	
 	function addExpense($expense){
-		$expenses[] = $expense;
+		$this->expenses[] = $expense;
 	}
 	
 	function getIncomes(){
-		return $incomes;
+		return $this->incomes;
 	}
 	
 	function getExpenses(){
-		return $expenses;
+		return $this->expenses;
 	}
 	
 	
