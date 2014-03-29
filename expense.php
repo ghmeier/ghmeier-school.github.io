@@ -5,12 +5,14 @@ class Expense
 	var $repeat;
 	var $amount;
 	var $priority;
+	var $name;
 
-	function _construct($amount, $priority, $repeat)
+	function _construct($amount, $priority, $repeat, $name)
        	{
-		$this->amount = $amount
+		$this->amount = $amount;
 		$this->priority = $priority;
 		$this->repeat = $repeat;
+		$this->name = $name;
 	}
 
 	function setAmount($a)
@@ -41,6 +43,16 @@ class Expense
 	function getPriority()
 	{
 		return $this->priority;
+	}
+
+	function setName($name)
+	{
+		$this->name = $name;
+	}
+
+	function getName()
+	{
+		return $this->name;
 	}
 }
 

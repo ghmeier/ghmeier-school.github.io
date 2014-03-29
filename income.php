@@ -5,12 +5,14 @@ class Income
 	var $amount;
 	var $repeat;
 	var $per6Min;
+	var $name;
 	
-	function _construct($newAmount, $newRepeat, $newPer6Min)
+	function _construct($newAmount, $newRepeat, $newPer6Min, $name)
 	{
 		$this->amount = $newAmount;
 		$this->repeat = $newRepeat;
 		$this->per6Min = $newPer6Min;
+		$this->name = $name;
 	}
 	
 	//Sets the amount this income has earned
@@ -43,6 +45,16 @@ class Income
 	function getPer6Min()
 	{
 		return $this->per6Min;
+	}
+
+	function setName($name)
+	{
+		$this->name = $name;
+	}
+
+	function getName()
+	{
+		return $this->name;
 	}
 }
 
