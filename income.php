@@ -2,12 +2,12 @@
 
 class Income
 {
-	var $amount;
-	var $repeat;
-	var $per6Min;
-	var $name;
+	var $amount = "";
+	var $repeat = "";
+ 	var $per6Min = "";
+	var $name = "";
 	
-	function _construct($newAmount, $newRepeat, $newPer6Min, $name)
+	function __construct($newAmount, $newRepeat, $newPer6Min, $name)
 	{
 		$this->amount = $newAmount;
 		$this->repeat = $newRepeat;

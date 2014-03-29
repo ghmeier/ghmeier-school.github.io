@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<?php require "expense.php" ?>
-<?php require "income.php" ?>
-<?php require "globals.php" ?>
+<?php require_once("expense.php"); ?>
+<?php require_once("income.php"); ?>
+<?php require_once("globals.php"); ?>
 <html>
 	<head>
 		<title>9to5</title>
@@ -13,6 +13,7 @@
 			$global->addIncome(new Income(100,$_SESSION['NONE'],5,"Work"));
 			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
 			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
+			
 		?>
 	</head>
 
@@ -23,7 +24,7 @@
 			<div id="expenses">
 			<?php foreach ($global->getExpenses() as $expense) {?>
 				<div class="expense">
-					<?= $expense->getName(); ?>
+					<?php echo $expense->getName(); ?>
 				</div>
 			<?php } ?>
 			</div>
@@ -40,7 +41,7 @@
 			<div id="income">
 			<?php foreach ($global->getIncomes() as $income) {?>
 				<div  class="income">
-					<?= $income->getName(); ?>
+					<?php echo $income->getName(); ?>
 				</div>
 			<?php } ?>
 			</div>

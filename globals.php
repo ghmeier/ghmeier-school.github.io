@@ -1,5 +1,6 @@
+<?php require_once("expense.php"); ?>
+<?php require_once("income.php"); ?>
 <?php
-
 class Globals{
 	var $incomes = array();
 	var $expenses = array();

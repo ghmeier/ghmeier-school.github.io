@@ -2,17 +2,18 @@
 
 class Expense
 {
-	var $repeat;
-	var $amount;
-	var $priority;
-	var $name;
+	var $repeat = 0;
+	var $amount = 0;
+	var $priority = 0;
+	var $name = "";
 
-	function _construct($amount, $priority, $repeat, $name)
+	function __construct($amount, $priority, $repeat, $name)
        	{
 		$this->amount = $amount;
 		$this->priority = $priority;
 		$this->repeat = $repeat;
 		$this->name = $name;
+		
 	}
 
 	function setAmount($a)
