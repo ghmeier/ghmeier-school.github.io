@@ -1,3 +1,53 @@
 body{
-	background-color:blue;
+	background-image:url("images/BackGround.jpg");
+}
+
+#container{
+	width:1080px;
+	height:100px;
+	min-height:500px;
+	background-color:#ffffff;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#balance{
+	width:500px;
+	height:500px;
+	border-radius: 250px;
+	background-color:green;
+	float:left;
+	bottom:0px;
+	top:540px;
+}
+
+#expenses{
+	float:left;
+	width:289px;
+	height:100%;
+	/*background-color: black;*/
+}
+
+#income{
+	float:right;
+	width:289px;
+	height:100%;
+	/*background-color:yellow;*/
+}
+
+.expense{
+	float:left;
+	width:90%;
+	height:5%;
+	margin:5%;
+	background-color:#990000;
+}
+
+.income{
+	float:right;
+	width:90%;
+	height:5%;
+	margin:5%;
+	background-color:#339966;
 }
