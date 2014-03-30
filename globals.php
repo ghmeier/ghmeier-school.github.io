@@ -3,6 +3,7 @@
 class Globals{
 	var $incomes = array();
 	var $expenses = array();
+	var $amountOwned = 0;
 	
 	
 	function _construct() {
