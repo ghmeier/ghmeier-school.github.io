@@ -3,13 +3,21 @@
 <?php require_once("income.php"); ?>
 <?php require_once("globals.php"); ?>
 <?php
+session_start();
 if(sizeof($_POST)) {
 	$name = $_POST["name"];
 	$income_name = $_POST["income-name"];
 	$income_amount = $_POST["income-amount"];
-	$rate = $_POST["rate"];
+	$income_rate = $_POST["income-rate"];
 	$expense_name = $_POST["expense-name"];
 	$expense_amount = $_POST["expense-amount"];
+	$expense_rate = $_POST["expense-rate"];
+	
+	$global = new Globals();
+	$global->addIncome(new Income($income_amount,$_SESSION[$income_ratete],$income_name));
+	$global->addExpense(new Expense($expense_amount,0,$_SESSION[$expense_rate],$expense_name));
+	setcookie("user", $name);
+	setcookie("global", $global);
 }
 ?>
 <html>
@@ -17,42 +25,20 @@ if(sizeof($_POST)) {
 		<title>9to5</title>
 		<link href="9to5Stylesheet.css" rel="stylesheet" type="text/css"/>
 		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
-		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"/>
-		<script src="script.js"></script>
-		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-		
-		<?php 			
-			session_start();
-			$global = new Globals();
-			$global->addIncome(new Income(100,$_SESSION['NONE'],5,"Work"));
-			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
-			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Drinks"));
-			
-		?>
 	</head>
 
 	<body>
 		<div id = "container">
 			
+			
 			<div id="expenses">
-			<?php foreach ($global->getExpenses() as $expense) {?>
-				<div  class="expense">
-					<h4><?= $expense->getName(); ?></h4>
-					<?php $expense->makePayment(20)?>
-					<div id =<?= "progressbar". $expense->getName() ?> > 
-						<div class='label'> <?= "$".$expense->getAmountPaid() ?> </div>
-					</div>
-					
-					<script>
-						var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
-						$(name).progressbar({max: <?= json_encode($expense->getAmount()) ?>});
-						$(name).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
-					</script>
-					
+			<?php
+				if(isset($_COOKIE["global"])) {
+				foreach ($global->getExpenses() as $expense) {?>
+				<div class="expense">
+					<?php echo $expense->getName(); ?>
 				</div>
-				
-			<?php } ?>
+			<?php } } ?>
 			</div>
 			
 			<div id="balance">
@@ -97,10 +83,11 @@ if(sizeof($_POST)) {
 						</td>
 						<td>
 						   <select>
-							<option name="rate" value="4">Per Year</option>
-							<option name="rate" value="3">Per Month</option>
-							<option name="rate" value="2">Per Week</option>
-							<option name="rate" value="1">Per Day</option>
+							<option name="income-rate" value="YEARLY">Per Year</option>
+							<option name="income-rate" value="MONTHLY">Per Month</option>
+							<option name="income-rate" value="WEEKLY">Per Week</option>
+							<option name="income-rate" value="DAILY">Per Day</option>
+							<option name="income-rate" value="NONE">Once</option>
 						    </select>
 						</td>
 					    </tr>
@@ -124,6 +111,20 @@ if(sizeof($_POST)) {
 						   <input type="text" name="expense-amount" value="0"><br>
 						</td>
 					    </tr>
+					    <tr>
+						<td>
+						   <h4 style="display:inline;">Rate:</h4>
+						</td>
+						<td>
+						   <select>
+							<option name="expense-rate" value="YEARLY">Per Year</option>
+							<option name="expense-rate" value="MONTHLY">Per Month</option>
+							<option name="expense-rate" value="WEEKLY">Per Week</option>
+							<option name="expense-rate" value="DAILY">Per Day</option>
+							<option name="expense-rate" value="NONE">Once</option>
+						    </select>
+						</td>
+					    </tr>
 				       </table>
 				       <br><br>
 				       <input type="submit" name="submit" value="Submit"> 
@@ -143,11 +144,13 @@ if(sizeof($_POST)) {
 			</div>
 			
 			<div id="income">
-			<?php foreach ($global->getIncomes() as $income) {?>
-				<div class="income">
+			<?php
+				if(isset($_COOKIE["global"])) {
+				foreach ($global->getIncomes() as $income) {?>
+				<div  class="income">
 					<?php echo $income->getName(); ?>
-
-			<?php } ?>
+				</div>
+			<?php } } ?>
 			</div>
 			
 			
