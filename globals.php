@@ -30,7 +30,15 @@ class Globals{
 		return $this->expenses;
 	}
 	
+		function getAmountOwned()
+	{
+		return $this->amountOwned;
+	}
 	
+	function updateAmountOwned($update)
+	{
+		$this->amountOwned = $this->amountOwned + $update;
+	}
 
 }
 
