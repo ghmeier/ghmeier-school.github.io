@@ -63,7 +63,7 @@ class Globals{
 			$this->totalMoney = $this->totalMoney + ($incomes[$1].getAmount() / 10.0);
 			
 			//Remove the income from the income array
-			if($this->incomes[$i].getRepeat())
+			if($this->incomes[$i].getRepeat() == 0)
 			{
 				for($n = $i; $n < $this->numIncomes; $n = $n + 1)
 				{
