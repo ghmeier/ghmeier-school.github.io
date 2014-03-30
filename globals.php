@@ -12,8 +12,9 @@ class Globals{
 	function __construct() {
 		$_SESSION["DELAY"] = 6000;
 		$_SESSION["NONE"] = 0;
-		$_SESSION["DAILY"] = 1;
-		$_SESSION["WEEKLY"] = 2;
+		$_SESSION["HOURLY"] = 1;
+		$_SESSION["DAILY"] = 2;
+		$_SESSION["WEEKLY"] = 3;
 		$_SESSION["MONTHLY"] = 4;
 		$_SESSION["YEARLY"] = 5;
 		$this->timer = time();
