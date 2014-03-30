@@ -75,8 +75,9 @@ class Globals{
 			$this->totalMoney = $this->totalMoney + ($this->incomes[$i]->getAmount() / 10.0);
 			
 			//Remove the income from the income array
-			if($this->incomes[$i]->getRepeat() == 0)
+			if($this->incomes[$i]->getRepeat() == $_SESSION["NONE"])
 			{
+				print "Removing an income\n";
 				for($n = $i; $n < $this->numIncomes; $n = $n + 1)
 				{
 					$this->incomes[$n] = $this->incomes[$n + 1];
