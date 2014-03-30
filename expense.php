@@ -6,13 +6,15 @@ class Expense
 	var $amount;
 	var $priority;
 	var $name;
+	var $amountPaid;
 
 	function _construct($amount, $priority, $repeat, $name)
-       	{
+    {
 		$this->amount = $amount;
 		$this->priority = $priority;
 		$this->repeat = $repeat;
 		$this->name = $name;
+		$this->amountPaid = 0;
 	}
 
 	function setAmount($a)
@@ -53,6 +55,11 @@ class Expense
 	function getName()
 	{
 		return $this->name;
+	}
+	
+	function makePayment($amount)
+	{
+		$this->amountPaid = $this->amountPaid + $amount;
 	}
 }
 
