@@ -26,14 +26,12 @@ body{
 	float:left;
 	width:289px;
 	height:100%;
-	/*background-color: black;*/
 }
 
 #income{
 	float:right;
 	width:289px;
 	height:100%;
-	/*background-color:yellow;*/
 }
 
 .expense{
@@ -41,8 +39,6 @@ body{
 	width:90%;
 	height:5%;
 	margin:5%;
-	margin-bottom:0%;
-	/*background-color:#990000;*/
 }
 
 .income{
@@ -50,13 +46,31 @@ body{
 	width:90%;
 	height:5%;
 	margin:5%;
-	margin-bottom:0%;
 	background-color:#339966;
+}
+
+.expense h4{
+	margin:0;
+	padding-left:0;
+	text-align:center;
+	
 }
 
 .ui-progressbar.ui-widget-content {
      background: red;
+	 border:none;
  }
+ 
+.label {
+    position: relative;
+	font-weight:bold;
+	background:none;
+    display:block;
+	left:50%;
+	margin-left:-5%;
+    margin-top:-14px;
+	top:18px;
+  }
 
 .ui-progressbar .ui-progressbar-value {
     background-image: url(images/Progressbar.jpg);

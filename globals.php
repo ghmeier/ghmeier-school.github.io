@@ -25,7 +25,7 @@ class Globals{
 		$this->expenses[] = $expense;
 		$this->numExpenses = $this->numExpenses + 1;
 		
-		$this->expenses = bubbleSort($this->expenses);
+		$this->expenses = $this->bubbleSort($this->expenses);
 	}
 	
 	function bubbleSort(array $arr)
@@ -33,7 +33,7 @@ class Globals{
 		$n = $this->numExpenses;
 		for ($i = 1; $i < $n; $i++) {
 			for ($j = $n - 1; $j >= $i; $j--) {
-				if($arr[$j-1].getPriority() > $arr[$j].getPriority()) {
+				if($arr[$j-1]->getPriority() > $arr[$j]->getPriority()) {
 					$tmp = $arr[$j - 1];
 					$arr[$j - 1] = $arr[$j];
 					$arr[$j] = $tmp;
@@ -56,12 +56,12 @@ class Globals{
 	{
 		foreach($this->incomes as $anIncome)
 		{
-			$this->totalMoney = $this->totalMoney + ($anIncome.getAmount() / 10.0);
+			$this->totalMoney = $this->totalMoney + ($anIncome->getAmount() / 10.0);
 		}
 		
 		for($i = 0; $i < $this->numIncomes; $i = $i + 1)
 		{
-			$this->totalMoney = $this->totalMoney + ($incomes[$1].getAmount() / 10.0);
+			$this->totalMoney = $this->totalMoney + ($incomes[$i].getAmount() / 10.0);
 			
 			//Remove the income from the income array
 			if($this->incomes[$i].getRepeat() == 0)

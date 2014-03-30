@@ -8,9 +8,9 @@
 		<link href="9to5Stylesheet.css" rel="stylesheet" type="text/css"/>
 		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
-    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"/>
-    <script src="script.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"/>
+		<script src="script.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 		
 		<?php 			
 			session_start();
@@ -28,9 +28,12 @@
 			<div id="expenses">
 			<?php foreach ($global->getExpenses() as $expense) {?>
 				<div  class="expense">
-					<?php echo $expense->getName(); ?>
-					<div id =<?= "progressbar". $expense->getName() ?> > </div>
-					<?php $expense->makePayment(10)?>
+					<h4><?= $expense->getName(); ?></h4>
+					<?php $expense->makePayment(20)?>
+					<div id =<?= "progressbar". $expense->getName() ?> > 
+						<div class='label'> <?= "$".$expense->getAmountPaid() ?> </div>
+					</div>
+					
 					<script>
 						var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
 						$(name).progressbar({max: <?= json_encode($expense->getAmount()) ?>});
@@ -55,14 +58,7 @@
 			<?php foreach ($global->getIncomes() as $income) {?>
 				<div class="income">
 					<?php echo $income->getName(); ?>
-										<div id =<?= "progressbar". $expense->getName() ?> > </div>
-					<?php $income->makePayment(10)?>
-					<script>
-						var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
-						$(name).progressbar({max: <?= json_encode($expense->getAmount()) ?>});
-						$(name).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
-					</script>
-				</div>
+
 			<?php } ?>
 			</div>
 			

@@ -65,14 +65,14 @@ class Expense
 	
 	function paidOff()
 	{
-		return $this->amount == 0;
+		return $this->amountPaid == $this->amount;
 	}
 	
 	function makePayment($amount)
 	{
-		//$this->amountPaid = $this->amountPaid + $amount;
+		$this->amountPaid = $this->amountPaid + $amount;
 		
-		$this->amount = $this->amount - $amount;
+		//$this->amount = $this->amount - $amount;
 	}
 }
 
