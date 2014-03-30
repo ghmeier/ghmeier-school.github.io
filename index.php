@@ -24,9 +24,9 @@
 		<script>
 			$(document).ready( function() {
 				setInterval( function(){
-					alert(<?= json_encode($global->getExpenses()[0]->getAmountPaid()." ".$global->getExpenses()[0]->getAmount()) ?>);
-					<?php $global->update() ?>
 					
+					<?php $global->update() ?>
+					//alert(<?= json_encode($global->getExpenses()[0]->getAmountPaid()." ".$global->getExpenses()[0]->getAmount()) ?>);
 				},<?= json_encode($_SESSION["DELAY"]) ?>);
 				
 			
