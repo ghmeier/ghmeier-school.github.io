@@ -6,15 +6,18 @@ class Globals{
 
 	var $expenses = array();
 	var $numExpenses = 0;
-	
+	var $timer = 0;
 	var $totalMoney = 0;
 	
 	function __construct() {
+		$_SESSION["DELAY"] = 6000;
 		$_SESSION["NONE"] = 0;
-		$_SESSION["DAILY"] = 1;
-		$_SESSION["WEEKLY"] = 2;
+		$_SESSION["HOURLY"] = 1;
+		$_SESSION["DAILY"] = 2;
+		$_SESSION["WEEKLY"] = 3;
 		$_SESSION["MONTHLY"] = 4;
 		$_SESSION["YEARLY"] = 5;
+		$this->timer = time();
 	}
 	function addIncome($income){
 		$this->incomes[] = $income;
@@ -26,6 +29,14 @@ class Globals{
 		$this->numExpenses = $this->numExpenses + 1;
 		
 		$this->expenses = $this->bubbleSort($this->expenses);
+	}
+	
+	function waitDone(){
+		return $this->timer + $_SESSION["DELAY"] < time();
+	}
+	
+	function updateTime(){
+		$this->timer = time();
 	}
 	
 	function bubbleSort(array $arr)
@@ -61,10 +72,10 @@ class Globals{
 		
 		for($i = 0; $i < $this->numIncomes; $i = $i + 1)
 		{
-			$this->totalMoney = $this->totalMoney + ($incomes[$i].getAmount() / 10.0);
+			$this->totalMoney = $this->totalMoney + ($this->incomes[$i]->getAmount() / 10.0);
 			
 			//Remove the income from the income array
-			if($this->incomes[$i].getRepeat() == 0)
+			if($this->incomes[$i]->getRepeat() == 0)
 			{
 				for($n = $i; $n < $this->numIncomes; $n = $n + 1)
 				{
@@ -77,21 +88,21 @@ class Globals{
 		
 		for($i = 0; $i < $this->numExpenses; $i = $i + 1)
 		{
-			if($this->expenses[$i].paidOff())
+			if($this->expenses[$i]->paidOff())
 			{
 				continue;
 			}
 			
-			if($this->totalMoney >= $this->expenses[$i].getAmount())
+			if($this->totalMoney >= $this->expenses[$i]->getAmount())
 			{
-				$amountPaid = $this->expenses[$i].getAmount();
-				$this->expenses[$i].makePayment($amountPaid);
+				$amountPaid = $this->expenses[$i]->getAmount();
+				$this->expenses[$i]->makePayment($amountPaid);
 				$this->totalMoney = $this->totalMoney - $amountPaid;
 			}
 			elseif($this->totalMoney > 0)
 			{
 				//Didn't have enough money to pay off in full
-				$this->expenses[$i].makePayment($this->totalMoney);
+				$this->expenses[$i]->makePayment($this->totalMoney);
 				$this->totalMoney = 0;
 			}
 		

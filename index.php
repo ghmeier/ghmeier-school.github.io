@@ -25,6 +25,38 @@ if(sizeof($_POST)) {
 		<title>9to5</title>
 		<link href="9to5Stylesheet.css" rel="stylesheet" type="text/css"/>
 		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<<<<<<< HEAD
+=======
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"/>
+		<script src="script.js"></script>
+		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+		
+		<?php 			
+			session_start();
+			$global = new Globals();
+			$global->addIncome(new Income(100,$_SESSION['YEARLY'],5,"Work"));
+			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
+			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Drinks"));
+			
+		?>
+		
+		<script>
+			$(document).ready( function() {
+				setInterval( function(){
+					alert(<?= json_encode($global->getExpenses()[0]->getAmountPaid()." ".$global->getExpenses()[0]->getAmount()) ?>);
+					<?php $global->update() ?>
+					
+				},<?= json_encode($_SESSION["DELAY"]) ?>);
+				
+			
+			
+			});
+		
+		
+		</script>
+		
+>>>>>>> 7690fe8a6572ceacadd8cf88c126891b89e838cb
 	</head>
 
 	<body>
@@ -32,11 +64,27 @@ if(sizeof($_POST)) {
 			
 			
 			<div id="expenses">
+<<<<<<< HEAD
 			<?php
 				if(isset($_COOKIE["global"])) {
 				foreach ($global->getExpenses() as $expense) {?>
 				<div class="expense">
 					<?php echo $expense->getName(); ?>
+=======
+			<?php foreach ($global->getExpenses() as $expense) {?>
+				<div  class="expense">
+					<h4><?= $expense->getName(); ?></h4>
+					<div id =<?= "progressbar". $expense->getName() ?> > 
+						<div class='label'> <?= "$".$expense->getAmountPaid() ?> </div>
+					</div>
+					
+					<script>
+						var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
+						$(name).progressbar({max: <?= json_encode($expense->getAmount()) ?>});
+						$(name).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
+					</script>
+					
+>>>>>>> 7690fe8a6572ceacadd8cf88c126891b89e838cb
 				</div>
 			<?php } } ?>
 			</div>
@@ -144,6 +192,7 @@ if(sizeof($_POST)) {
 			</div>
 			
 			<div id="income">
+<<<<<<< HEAD
 			<?php
 				if(isset($_COOKIE["global"])) {
 				foreach ($global->getIncomes() as $income) {?>
@@ -151,6 +200,12 @@ if(sizeof($_POST)) {
 					<?php echo $income->getName(); ?>
 				</div>
 			<?php } } ?>
+=======
+			<?php foreach ($global->getIncomes() as $income) {?>
+				<div class="income">
+					<?= $income->getName(); ?>
+			<?php } ?>
+>>>>>>> 7690fe8a6572ceacadd8cf88c126891b89e838cb
 			</div>
 			
 			
