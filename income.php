@@ -31,7 +31,6 @@ class Income
 				$divisor = 604800.0;
 				break;
 			default:
-				print "You fucked up.";
 				break;
 		}
 		
