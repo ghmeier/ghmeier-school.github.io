@@ -1,9 +1,9 @@
-
 <?php
 
 class Globals{
 	var $incomes = array();
 	var $expenses = array();
+	var $totalMoney = 0;
 	
 	function __construct() {
 		$_SESSION['NONE'] = 0;
@@ -27,6 +27,13 @@ class Globals{
 		return $this->expenses;
 	}
 	
+	function update()
+	{
+		foreach($this->incomes as $anIncome)
+		{
+			$this->totalMoney = $this->totalMoney + ($anIncome.getAmount() / 10.0);
+		}
+	}
 }
 
 ?>
