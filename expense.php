@@ -7,7 +7,7 @@ class Expense
 	var $amount = 0;
 	var $priority = 0;
 	var $name = "";
-	var $amountPaid;
+	var $amountPaid = 0;
 
 	function __construct($amount, $priority, $repeat, $name)
 	{
@@ -59,9 +59,20 @@ class Expense
 		return $this->name;
 	}
 	
+	function getAmountPaid(){
+		return $this->amountPaid;
+	}
+	
+	function paidOff()
+	{
+		return $this->amountPaid == $this->amount;
+	}
+	
 	function makePayment($amount)
 	{
 		$this->amountPaid = $this->amountPaid + $amount;
+		
+		//$this->amount = $this->amount - $amount;
 	}
 }
 
