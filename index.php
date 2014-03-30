@@ -15,11 +15,27 @@
 		<?php 			
 			session_start();
 			$global = new Globals();
-			$global->addIncome(new Income(100,$_SESSION['NONE'],5,"Work"));
+			$global->addIncome(new Income(100,$_SESSION['YEARLY'],5,"Work"));
 			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Foods"));
 			$global->addExpense(new Expense(100,0,$_SESSION['DAILY'],"Drinks"));
 			
 		?>
+		
+		<script>
+			$(document).ready( function() {
+				setInterval( function(){
+					alert(<?= json_encode($global->getExpenses()[0]->getAmountPaid()." ".$global->getExpenses()[0]->getAmount()) ?>);
+					<?php $global->update() ?>
+					
+				},<?= json_encode($_SESSION["DELAY"]) ?>);
+				
+			
+			
+			});
+		
+		
+		</script>
+		
 	</head>
 
 	<body>
@@ -29,7 +45,6 @@
 			<?php foreach ($global->getExpenses() as $expense) {?>
 				<div  class="expense">
 					<h4><?= $expense->getName(); ?></h4>
-					<?php $expense->makePayment(20)?>
 					<div id =<?= "progressbar". $expense->getName() ?> > 
 						<div class='label'> <?= "$".$expense->getAmountPaid() ?> </div>
 					</div>
@@ -57,8 +72,7 @@
 			<div id="income">
 			<?php foreach ($global->getIncomes() as $income) {?>
 				<div class="income">
-					<?php echo $income->getName(); ?>
-
+					<?= $income->getName(); ?>
 			<?php } ?>
 			</div>
 			
