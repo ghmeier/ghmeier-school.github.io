@@ -5,26 +5,27 @@
 <?php
  error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
-session_start();
-$global = new Globals();
+//session_start();
 //session_destroy();
+$global = new Globals();
 if(sizeof($_POST)) {
 	
 	$name = $_POST["name"];
 	$income_name = $_POST["income-name"];
 	$income_amount = intval($_POST["income-amount"]);
-	echo $income_amount;
 	$income_rate = $_POST["income-rate"];
 	$expense_name = $_POST["expense-name"];
 	$expense_amount = intval($_POST["expense-amount"]);
 	$expense_rate = $_POST["expense-rate"];
-	//echo var_dump($_POST);
-	//echo $income_rate." |||||  ".$_POST["income-rate"]."\n";
-	//echo $expense_rate." |||||  ".$_POST["expense-rate"]."\n";
 	
 	$global = new Globals();
 	$global->addIncome(new Income($income_amount,$_SESSION[$income_rate],$income_name));
+	$global->addIncome(new Income(10000,$_SESSION["MONTHLY"],"Scholarships"));
+	$global->addIncome(new Income(500,$_SESSION["WEEKLY"],"Web Hosting"));
 	$global->addExpense(new Expense($expense_amount,0,$_SESSION[$expense_rate],$expense_name));
+	$global->addExpense(new Expense(100,0,$_SESSION["MONTHLY"],"DiningCenter"));
+	$global->addExpense(new Expense(60,0,$_SESSION["ONCE"],"VideoGame"));
+	$global->addExpense(new Expense(10000,0,$_SESSION["YEARLY"],"TacoBell"));
 	$_SESSION["user"] =  $name;
 	$_SESSION["global"] =  $global;
 }
@@ -38,54 +39,40 @@ if(sizeof($_POST)) {
 		<link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css"/>
 		<script src="script.js"></script>
 		<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-		
-		<script>
-			$(document).ready( function() {
-				setInterval( function(){
-
-					<?php 
-						$global->update(); 
-					
-						?>
-						<?php foreach ( $global->getExpenses() as $expense) { ?>
-							var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
-							$(name).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
-							$(name).innerHTML = <?= json_encode("$".$expense->getAmountPaid()) ?>
-						<?php } ?>
-				},6000);
-			});
-		
-		
-		</script>
-		
 	</head>
+	
 	<body>
 		<div id = "container">
+			<div id = "header">
+				<img src="images/9to5.png" style="display:block; margin-left:auto;margin-right:auto;"/>
+			</div>
 			<div id="expenses">
-			<?php
+			<h1> Expenses</h1>
+				<?php
 				if(isset($_SESSION["global"])) {
-				$global = $_SESSION["global"];
+				//$global = $_SESSION["global"];
+				$global->update();
 				 foreach ($global->getExpenses() as $expense) {?>
 				<div  class="expense">
-					<h4><?= $expense->getName(); ?></h4>
+					<h4><?= $expense->getName() ?></h4>
 					<div id =<?= "progressbar". $expense->getName() ?> > 
-						<div class='label'> <?= "$".$expense->getAmountPaid() ?> </div>
+						<div id = "label" class= <?= json_encode("label".$expense->getName()) ?> > <?= "$".json_encode($expense->getAmountPaid())."/$".json_encode($expense->getAmount()) ?> </div>
 					</div>
 					
 					<script>
 						var name = "#progressbar" + <?= json_encode($expense->getName()) ?>;
 						$(name).progressbar({max: <?= json_encode($expense->getAmount()) ?>});
-						//$(name).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
+						$(<?= json_encode(".label".$expense->getName()) ?>).progressbar({value: <?= json_encode($expense->getAmountPaid()) ?>});
 					</script>
 					
 
 				</div>
-			<?php } } ?>
+			<?php }  } ?>
 			</div>
 			
 			<div id="balance">
 				<?php
-				echo $_SESSION["user"];
+				//echo $_SESSION["user"];
 				if(!isset($_SESSION["user"])) { ?>
 				<div style="margin-left:30%;margin-top:15%;">	
 				<form method="post" action="index.php" name="create" onsubmit="return validateForm()">
@@ -175,16 +162,26 @@ if(sizeof($_POST)) {
 				    </form>
 				
 				<?php } else {
-					/*Balace GOES HERE*/
+					/*Balance GOES HERE*/
 					
-					echo " Balance";
+					echo "<div id='balanceText'>Balance\n$9,001</div>";
 					
 				} ?>
 				</div>
- 			
-			</div>
-			
-			<div id="add-form">
+
+			<div id="income">
+	<h1>Incomes</h1>
+				<?php
+				if(isset($_SESSION["global"])) {
+				$global = $_SESSION["global"];
+				foreach ($global->getIncomes() as $income) {?>
+				<div  class="income">
+					<?php echo $income->getName()."\n $".number_format((float)$income->getPer6min(), 2, '.', '')." per 6 minutes" ?>
+				</div>
+				<?php } } ?>
+			</div>	
+				
+			<div id="add-form" style="float:left">
 					<form>			       
 				       <h3>Expense:</h3>
 				       <table>
@@ -219,22 +216,50 @@ if(sizeof($_POST)) {
 						</td>
 					    </tr>
 				       </table>
-				       <br><br>
-				       <input type="submit" name="submit" value="Submit"> 
+				       <input type="submit" name="submit" value="Add"> 
 				    </form>
 				
 			</div>
 			
-			<div id="income">
-
-			<?php
-				if(isset($_SESSION["global"])) {
-				$global = $_SESSION["global"];
-				foreach ($global->getIncomes() as $income) {?>
-				<div  class="income">
-					<?php echo $income->getName(); ?>
-				</div>
-			<?php } } ?>
+			<div id ="income-form" style="float:right">
+				<form> 
+					<h3>Income:</h3>
+				       <table>
+					    <tr>
+						<td>
+						    <h4 style="display:inline;">Name:</h4>
+						</td>
+						<td>
+						    <input type="text" name="income-name"><br>
+						</td>
+					    </tr>
+					    <tr>
+						<td>
+						    <h4 style="display:inline;">Amount:</h4>
+						</td>
+						<td>
+						   <input type="text" name="income-amount"  value="0"><br>
+						</td>
+					    </tr>
+					    <tr>
+						<td>
+						   <h4 style="display:inline;">Rate:</h4>
+						</td>
+						<td>
+						   <select name = "income-rate">
+							<option  value="YEARLY">Per Year</option>
+							<option  value="MONTHLY">Per Month</option>
+							<option  value="WEEKLY">Per Week</option>
+							<option  value="DAILY">Per Day</option>
+							<option  value="NONE">Once</option>
+						    </select>
+						</td>
+					    </tr>
+				       </table>
+					   <input type="submit" name="submit" value="Add"> 
+				</form>
+			</div>
+			
 			</div>
 		<script type="text/javascript">
     
@@ -261,7 +286,6 @@ if(sizeof($_POST)) {
 		  alert("The expense amount is not valid");
 		  return false;
 		  }
-		  //setTimeout(function() { window.location.reload()},10);
 		 window.location.reload();
 		return true;
 		}
